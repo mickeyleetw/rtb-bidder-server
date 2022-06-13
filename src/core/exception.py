@@ -17,16 +17,6 @@ class BaseException_(Exception):
         super().__init__(msg)
 
 
-class BidderServiceException(BaseException_):
-    code = ErrorCode.BIDDER_API_3001_UNKNOWN_ERROR
-    message = 'Bidder API service error'
-
-    def __init__(self, msg=None, **kwargs):
-        msg = f'{self.message} ({msg})'
-        super().__init__(msg, **kwargs)
-        self.message = msg
-
-
 class ResourceNotFoundException(BaseException_):
 
     def __init__(self, subject: str):
