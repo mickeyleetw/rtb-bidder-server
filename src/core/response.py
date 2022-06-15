@@ -60,33 +60,50 @@ def response_404(subject: str) -> dict:
                     {
                         'application/json':
                             {
-                                'example': {
-                                    'code': ErrorCode.RESOURCE_2001_NOT_FOUND,
-                                    'message': 'resource not found'
-                                }
+                                'example':
+                                    {
+                                        'code': ErrorCode.GENERAL_1006_RESOURCE_NOT_FOUND,
+                                        'message': 'resource not found'
+                                    }
                             }
                     },
             }
     }
 
 
-# TODO: to be modified
-# def response_400(subject: str) -> dict:
-#     return {
-#         status.HTTP_400_BAD_REQUEST:
-#             {
-#                 'model': ErrorMessage,
-#                 'description': f'{subject} has no updated content',
-#                 'content':
-#                     {
-#                         'application/json':
-#                             {
-#                                 'example':
-#                                     {
-#                                         'code': ErrorCode.GENERAL_1009_UPDATE_CONTENT_NOT_FOUND,
-#                                         'message': f'{subject} has no updated content'
-#                                     }
-#                             }
-#                     },
-#             }
-#     }
+def response_400() -> dict:
+    return {status.HTTP_400_BAD_REQUEST: {'model': ErrorMessage, 'description': 'Bidder API unexpected error'}}
+
+
+def response_403() -> dict:
+    return {
+        status.HTTP_403_FORBIDDEN:
+            {
+                'model': ErrorMessage,
+                'description': 'Forbidden',
+                'content':
+                    {
+                        'application/json':
+                            {
+                                'example':
+                                    {
+                                        'code': ErrorCode.GENERAL_1003_INVALID_STATE_TRANSITION,
+                                        'message': 'state error'
+                                    }
+                            }
+                    }
+            }
+    }
+
+
+def response_409() -> dict:
+    return {status.HTTP_409_CONFLICT: {'model': ErrorMessage, 'description': 'Conflict'}}
+
+
+def response_416() -> dict:
+    return {
+        status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE: {
+            'model': ErrorMessage,
+            'description': 'not to participate'
+        }
+    }

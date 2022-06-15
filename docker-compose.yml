@@ -1,10 +1,21 @@
 version: '3'
 services:
-  exchange-api:
-    container_name: exchange-api-server
+  bidder-api:
+    container_name: bidder-server
     build:
       context: .
       dockerfile: Dockerfile
-    image: api-server
+    image: bidder-server
     ports:
       - '3002:3002'
+    networks:
+      - bidder-net-work
+
+networks:
+  bidder-net-work:
+    name: rtb_network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.0.0/16
+          gateway: 172.31.0.1
